@@ -28,11 +28,10 @@ jobs:
         body: New Release
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: "./UltimateApp/bin/Release/netcoreapp3.1/UltimateApp" 
-- name: Test
-    run: dotnet test --no-restore --verbosity normal --logger trx --results-directory "TestResults" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-  uses: dorny/test-reporter@v1
-  if: always()
-  with:
-    name: Test Results on dev
-    path: ./TestResults/*.trx
-    reporter: dotnet-trx
+    - name: Publish Test
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+      name: Test Results on dev
+      path: ./TestResults/*.trx
+      reporter: dotnet-trx
